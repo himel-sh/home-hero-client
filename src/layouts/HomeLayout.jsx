@@ -1,17 +1,21 @@
 import React from "react";
 import { Outlet } from "react-router";
-import Header from "../components/Header";
+import Navbar from "../components/Navbar";
 
 const HomeLayout = () => {
   return (
-    <div>
-      <header>
-        <Header></Header>
+    <div className="min-h-screen flex flex-col bg-base-300">
+      <header className="sticky top-0 z-50 bg-base-100 shadow-xl backdrop-blur-md bg-opacity-95 border-b border-gray-100">
+        <Navbar />
       </header>
-      <main className="min-h-screen  bg-base-300 ">
-        <Outlet></Outlet>
+
+      <main className="flex-1">
+        <Outlet />
       </main>
-      <footer></footer>
+
+      <footer className="py-6 text-center text-sm text-accent opacity-70 border-t border-base-200">
+        © {new Date().getFullYear()} HomeHero. All rights reserved.
+      </footer>
     </div>
   );
 };

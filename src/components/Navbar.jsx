@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
+  const { user, signOutUser } = useContext(AuthContext); // make sure signOutUser is provided in AuthContext
+
   const navLinkClass = ({ isActive }) =>
     `px-3 py-2 rounded-lg transition-all duration-300 ${
       isActive
-        ? "bg-primary text-accent font-semibold shadow-md"
-        : "text-accent hover:text-secondary hover:bg-base-200"
+        ? "bg-primary text-accent font-bold shadow-md"
+        : "text-accent hover:text-white hover:font-bold hover:bg-secondary"
     }`;
 
   const links = (
@@ -21,21 +24,25 @@ const Navbar = () => {
           Services
         </NavLink>
       </li>
-      <li>
-        <NavLink to="/my-services" className={navLinkClass}>
-          My Services
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/add-service" className={navLinkClass}>
-          Add Service
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/my-bookings" className={navLinkClass}>
-          My Bookings
-        </NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/myServices" className={navLinkClass}>
+              My Services
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/addService" className={navLinkClass}>
+              Add Service
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/myBookings" className={navLinkClass}>
+              My Bookings
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -91,19 +98,45 @@ const Navbar = () => {
       </div>
 
       {/* Navbar End */}
-      <div className="navbar-end space-x-1 sm:space-x-2">
-        <NavLink
-          to="/login"
-          className="btn btn-primary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to="/register"
-          className="btn btn-secondary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"
-        >
-          Register
-        </NavLink>
+      <div className="navbar-end flex items-center gap-2">
+        {!user ? (
+          <>
+            <NavLink
+              to="/login"
+              className="btn btn-primary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to="/register"
+              className="btn btn-secondary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"
+            >
+              Register
+            </NavLink>
+          </>
+        ) : (
+          <>
+            {/* User Info */}
+            {user.photoURL && (
+              <img
+                src={user.photoURL}
+                alt={user.displayName || "User"}
+                className="h-10 w-10 rounded-full object-cover border-2 border-primary"
+              />
+            )}
+            <span className="font-semibold text-accent">
+              {user.displayName || "User"}
+            </span>
+
+            {/* Logout Button */}
+            <button
+              onClick={signOutUser}
+              className="btn btn-primary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"
+            >
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

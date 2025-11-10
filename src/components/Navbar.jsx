@@ -76,7 +76,7 @@ const Navbar = () => {
           className="text-2xl lg:text-3xl font-extrabold flex items-center gap-2 text-accent"
         >
           <img
-            src="/logo.svg"
+            src="/logo1.svg"
             alt="HomeHero Logo"
             className="h-10 w-10 lg:h-12 lg:w-12"
           />

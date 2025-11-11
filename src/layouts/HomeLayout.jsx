@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const HomeLayout = () => {
   return (
@@ -12,9 +13,8 @@ const HomeLayout = () => {
       <main className="flex-1">
         <Outlet />
       </main>
-
-      <footer className="py-6 text-center text-sm text-accent opacity-70 border-t border-base-200">
-        © {new Date().getFullYear()} HomeHero. All rights reserved.
+      <footer>
+        <Footer />
       </footer>
     </div>
   );

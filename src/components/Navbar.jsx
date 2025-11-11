@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-  const { user, signOutUser } = useContext(AuthContext); // make sure signOutUser is provided in AuthContext
+  const { user, signOutUser } = useContext(AuthContext);
 
   const navLinkClass = ({ isActive }) =>
     `px-3 py-2 rounded-lg transition-all duration-300 ${
@@ -46,11 +47,29 @@ const Navbar = () => {
     </>
   );
 
+  const handleLogout = async () => {
+    try {
+      await signOutUser();
+      Swal.fire({
+        icon: "success",
+        title: "Logged out",
+        text: "You have successfully logged out.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message,
+      });
+    }
+  };
+
   return (
     <div className="w-11/12 mx-auto navbar text-accent py-2">
       {/* Navbar Start */}
       <div className="navbar-start">
-        {/* Mobile Dropdown */}
         <div className="dropdown">
           <div
             tabIndex={0}
@@ -77,7 +96,6 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* Logo */}
         <NavLink
           to="/"
           className="text-2xl lg:text-3xl font-extrabold flex items-center gap-2 text-accent"
@@ -101,25 +119,24 @@ const Navbar = () => {
       <div className="navbar-end flex items-center gap-2">
         {!user ? (
           <>
-            <NavLink
+            <Link
               to="/login"
               className="btn btn-primary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"
             >
               Login
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/register"
               className="btn btn-secondary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"
             >
               Register
-            </NavLink>
+            </Link>
           </>
         ) : (
           <>
-            {/* User Info */}
             {user.photoURL && (
               <img
-                src={user.photoURL}
+                src={user.photoURL || "/default-user.png"}
                 alt={user.displayName || "User"}
                 className="h-10 w-10 rounded-full object-cover border-2 border-primary"
               />
@@ -128,9 +145,8 @@ const Navbar = () => {
               {user.displayName || "User"}
             </span>
 
-            {/* Logout Button */}
             <button
-              onClick={signOutUser}
+              onClick={handleLogout}
               className="btn btn-primary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"
             >
               Logout

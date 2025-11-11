@@ -16,7 +16,7 @@ const stagger = {
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-20 bg-base-200 text-accent">
+    <section className="py-20 bg-base-300 text-accent">
       <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-24 gap-16">
         <motion.div
           variants={stagger}

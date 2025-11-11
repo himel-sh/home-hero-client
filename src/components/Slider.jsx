@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "framer-motion";
+import { Link } from "react-router";
 
 import img1 from "../assets/asset1.jpg";
 import img2 from "../assets/asset2.jpg";
@@ -90,15 +91,18 @@ const Slider = () => {
         >
           Expert Solutions For <br className="block" /> Every Home
         </motion.p>
-
-        <motion.button
+        <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
-          className="btn btn-primary text-accent font-bold text-sm px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition-transform w-fit"
         >
-          Learn More
-        </motion.button>
+          <Link
+            to="/services"
+            className="btn btn-primary text-accent font-bold text-sm px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition-transform w-fit"
+          >
+            Learn More
+          </Link>
+        </motion.div>
       </div>
 
       <button

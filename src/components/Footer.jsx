@@ -6,7 +6,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
+    <footer className="bg-neutral text-neutral-content pt-10">
       <div className="w-11/12 mx-auto flex flex-col sm:flex-row justify-between gap-10">
         {/* Logo & Brand */}
         <aside className="flex flex-col gap-2">
@@ -89,6 +89,11 @@ const Footer = () => {
             Cookie policy
           </Link>
         </nav>
+      </div>
+
+      {/* Copyright */}
+      <div className="text-center mt-10 pb-6 text-sm opacity-70">
+        &copy; {new Date().getFullYear()} HomeHero. All rights reserved.
       </div>
     </footer>
   );

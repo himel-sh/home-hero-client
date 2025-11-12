@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Wrench, Plug, Hammer, Paintbrush, Layers, Home } from "lucide-react";
 import { useNavigate } from "react-router";
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -26,6 +27,7 @@ const HomeServices = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     fetch("http://localhost:3000/services")
       .then((res) => {
@@ -85,7 +87,7 @@ const HomeServices = () => {
               return (
                 <motion.div
                   key={service._id}
-                  onClick={() => navigate("/services")}
+                  onClick={() => navigate(`/services/${service._id}`)} // <-- Navigate to service details
                   variants={fadeInUp}
                   className="relative group bg-base-300 p-4 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between cursor-pointer"
                 >

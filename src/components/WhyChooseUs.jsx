@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 import img1 from "../assets/asset2.jpg";
 import img2 from "../assets/asset4.jpg";
+import { useNavigate } from "react-router";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -15,6 +16,7 @@ const stagger = {
 };
 
 const WhyChooseUs = () => {
+  const navigate = useNavigate();
   return (
     <section className="py-20 bg-base-300 text-accent">
       <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-24 gap-16">
@@ -96,6 +98,7 @@ const WhyChooseUs = () => {
           <motion.button
             variants={fadeInUp}
             className="px-8 py-3 bg-secondary font-semibold rounded-lg shadow-lg hover:bg-primary hover:text-blue-500 transition"
+            onClick={() => navigate("/services")}
           >
             Learn More
           </motion.button>

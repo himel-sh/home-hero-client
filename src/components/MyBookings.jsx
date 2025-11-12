@@ -11,6 +11,9 @@ import {
 } from "lucide-react";
 
 const MyBookings = () => {
+  useEffect(() => {
+    document.title = "My Bookings - HomeHero"; // sets browser tab title
+  }, []);
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);

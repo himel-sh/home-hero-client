@@ -1,10 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
 import { PlusCircle, Trash2, Plus } from "lucide-react";
 
 const AddService = () => {
+  useEffect(() => {
+    document.title = "Add Service - HomeHero"; // sets browser tab title
+  }, []);
+
   const { user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     serviceName: "",

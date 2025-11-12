@@ -7,6 +7,9 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useLoaderData } from "react-router";
 
 const ServiceDetails = () => {
+  useEffect(() => {
+    document.title = "Service Details - HomeHero"; // sets browser tab title
+  }, []);
   const service = useLoaderData();
   const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);

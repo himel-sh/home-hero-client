@@ -146,7 +146,7 @@ const Navbar = () => {
                 />
               )}
               <span className="font-semibold text-accent">
-                {user.displayName || ""}
+                {user.displayName || "User"}
               </span>
             </Link>
             <button

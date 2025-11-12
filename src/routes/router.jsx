@@ -11,6 +11,7 @@ import ServiceDetails from "../components/ServiceDetails";
 import MyServicesWrapper from "../contexts/MyServiceWrapper";
 import Profile from "../components/Profile";
 import Login from "../components/Login";
+import Error404 from "../components/Error404";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/services",
         Component: Services,
+      },
+      {
+        path: "*",
+        Component: Error404,
       },
       {
         // Private Routes

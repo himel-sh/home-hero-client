@@ -17,15 +17,13 @@ const Profile = () => {
         photoURL: user.photoURL || "",
       });
     }
-  }, [user?.email]);
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      name: user.displayName || "",
-      photoURL: user.photoURL || "",
-    });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -74,17 +72,19 @@ const Profile = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
-        <h2 className="text-3xl font-bold text-accent mb-6">My Profile</h2>
+      <div className="bg-white shadow-xl rounded-3xl p-10 w-full max-w-2xl border-2 border-secondary/30">
+        <h2 className="text-3xl font-bold text-accent mb-8 text-center">
+          My Profile
+        </h2>
 
         {/* Profile Info */}
-        <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
+        <div className="flex flex-col md:flex-row items-center gap-6 mb-10">
           <img
             src={formData.photoURL || "/default-avatar.png"}
             alt={formData.name || "User"}
-            className="w-32 h-32 rounded-full object-cover border-2 border-secondary"
+            className="w-32 h-32 rounded-full object-cover border-2 border-secondary shadow-sm"
           />
-          <div className="flex-1">
+          <div className="flex-1 text-center md:text-left">
             <p className="text-gray-700 mb-1">
               <span className="font-semibold">Email:</span> {user.email}
             </p>
@@ -98,21 +98,23 @@ const Profile = () => {
         </div>
 
         {/* Update Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block font-semibold mb-1">Name</label>
+            <label className="block font-semibold mb-2 text-gray-700">
+              Name
+            </label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter your name"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full rounded-xl border-secondary/50 shadow-sm focus:border-secondary focus:ring-1 focus:ring-secondary transition"
               required
             />
           </div>
           <div>
-            <label className="block font-semibold mb-1">
+            <label className="block font-semibold mb-2 text-gray-700">
               Profile Image URL
             </label>
             <input
@@ -121,14 +123,14 @@ const Profile = () => {
               value={formData.photoURL}
               onChange={handleChange}
               placeholder="Enter image URL"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full rounded-xl border-secondary/50 shadow-sm focus:border-secondary focus:ring-1 focus:ring-secondary transition"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="btn btn-secondary w-full mt-2"
+            className="w-full py-3 mt-2 bg-gradient-to-r from-secondary to-primary text-accent font-semibold rounded-xl shadow-md hover:shadow-xl hover:text-white transition-all duration-300"
           >
             {loading ? "Updating..." : "Update Profile"}
           </button>

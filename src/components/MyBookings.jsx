@@ -82,7 +82,7 @@ const MyBookings = () => {
     >
       {/* Title */}
       <div className="flex items-center justify-center gap-3 mb-8">
-        <ClipboardList className="text-blue-600" size={36} />
+        <ClipboardList className="text-secondary" size={36} />
         <h2 className="text-4xl font-bold text-gray-800">My Bookings</h2>
       </div>
 
@@ -97,28 +97,28 @@ const MyBookings = () => {
           >
             <thead className="bg-blue-50 border-b border-gray-200">
               <tr>
-                <th className="px-6 py-3 text-left font-semibold text-gray-700">
+                <th className="px-6 py-3 text-left font-bold text-gray-700">
                   Service Name
                 </th>
-                <th className="px-6 py-3 text-left font-semibold text-gray-700">
-                  <User size={16} className="inline mr-1 text-blue-600" />
+                <th className="px-6 py-3 text-left font-bold text-gray-700">
+                  <User size={16} className="inline mr-1 text-secondary" />
                   Provider
                 </th>
-                <th className="px-6 py-3 text-left font-semibold text-gray-700">
+                <th className="px-6 py-3 text-left font-bold text-gray-700">
                   <DollarSign
                     size={16}
                     className="inline mr-1 text-green-600"
                   />
                   Price
                 </th>
-                <th className="px-6 py-3 text-left font-semibold text-gray-700">
+                <th className="px-6 py-3 text-left font-bold text-gray-700">
                   <CalendarDays
                     size={16}
                     className="inline mr-1 text-orange-600"
                   />
                   Booking Date
                 </th>
-                <th className="px-6 py-3 text-center font-semibold text-gray-700">
+                <th className="px-6 py-3 text-center font-bold text-gray-700">
                   Actions
                 </th>
               </tr>

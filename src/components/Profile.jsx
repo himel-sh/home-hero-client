@@ -2,38 +2,35 @@ import React, { useContext, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
+import { auth } from "../firebase/firebase.init";
 
 const Profile = () => {
-  const { user, setUser } = useContext(AuthContext); // get setUser from context
+  const { user, setUser, updateUserProfile } = useContext(AuthContext);
   const [formData, setFormData] = useState({ name: "", photoURL: "" });
   const [loading, setLoading] = useState(false);
 
-  // Set document title
-  useEffect(() => {
-    document.title = "My Profile - HomeHero";
-  }, []);
-
-  // Populate form with user data
+  // Initialize formData when user becomes available
   useEffect(() => {
     if (user) {
       setFormData({
-        name: user.name || "",
+        name: user.displayName || user.name || "",
         photoURL: user.photoURL || "",
       });
     }
-  }, [user]);
+  }, [user?.email]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({
+      name: user.displayName || "",
+      photoURL: user.photoURL || "",
+    });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Use email to identify user
       const res = await fetch(
         `http://localhost:3000/users/email/${user.email}`,
         {
@@ -42,15 +39,22 @@ const Profile = () => {
           body: JSON.stringify(formData),
         }
       );
+      const backendData = await res.json();
+      if (!res.ok) throw new Error(backendData.message || "Update failed");
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || data.error || "Update failed");
+      if (auth.currentUser) {
+        await updateUserProfile({
+          displayName: formData.name,
+          photoURL: formData.photoURL,
+        });
       }
 
-      // Update context
-      setUser(data);
+      setUser((prev) => ({
+        ...prev,
+        displayName: formData.name,
+        photoURL: formData.photoURL,
+        ...backendData,
+      }));
 
       Swal.fire("Success", "Profile updated successfully!", "success");
     } catch (err) {
@@ -71,14 +75,13 @@ const Profile = () => {
       transition={{ duration: 0.5 }}
     >
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
-        {/* Header */}
         <h2 className="text-3xl font-bold text-accent mb-6">My Profile</h2>
 
         {/* Profile Info */}
         <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
           <img
             src={formData.photoURL || "/default-avatar.png"}
-            alt={user.name}
+            alt={formData.name || "User"}
             className="w-32 h-32 rounded-full object-cover border-2 border-secondary"
           />
           <div className="flex-1">
@@ -87,7 +90,9 @@ const Profile = () => {
             </p>
             <p className="text-gray-700 mb-1">
               <span className="font-semibold">Last Login:</span>{" "}
-              {new Date(user.lastLogin).toLocaleString()}
+              {user.lastLogin
+                ? new Date(user.lastLogin).toLocaleString()
+                : "N/A"}
             </p>
           </div>
         </div>

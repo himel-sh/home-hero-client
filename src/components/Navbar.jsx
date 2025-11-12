@@ -51,14 +51,15 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await signOutUser();
-      navigate("/");
       Swal.fire({
         icon: "success",
         title: "Logged out",
         text: "You have successfully logged out.",
         timer: 2000,
         showConfirmButton: false,
-      }).then(() => {});
+      }).then(() => {
+        navigate("/"); // navigate AFTER Swal finishes
+      });
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -145,7 +146,7 @@ const Navbar = () => {
                 />
               )}
               <span className="font-semibold text-accent">
-                {user.displayName || "User"}
+                {user.displayName || ""}
               </span>
             </Link>
             <button

@@ -4,8 +4,9 @@ import { useNavigate, useLocation } from "react-router";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import { FcGoogle } from "react-icons/fc";
-
+import { Link } from "react-router";
 const Login = () => {
+  document.title = "Login - Home Hero";
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ const Login = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
+      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md border-2 border-secondary/50">
         <h2 className="text-3xl font-bold text-accent text-center mb-6">
           User Login
         </h2>
@@ -90,7 +91,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="btn btn-secondary w-full mt-2"
+            className="btn btn-secondary text-accent hover:btn-secondary hover:text-white w-full mt-2"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
@@ -105,6 +106,16 @@ const Login = () => {
         >
           <FcGoogle size={20} /> Continue with Google
         </button>
+
+        <p className="text-sm mt-2 text-center">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="link text-primary font-extrabold hover:text-secondary"
+          >
+            Register
+          </Link>
+        </p>
       </div>
     </motion.div>
   );

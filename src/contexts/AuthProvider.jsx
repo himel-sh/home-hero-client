@@ -7,6 +7,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.init";
 
@@ -16,19 +17,16 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 Register user
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // 🔹 Sign in user
   const signInUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // 🔹 Sign out user
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
@@ -39,24 +37,65 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, googleProvider);
   };
 
-  // 🔹 Track user authentication state
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        try {
+          // fetch backend data
+          const res = await fetch(
+            `http://localhost:3000/users/email/${currentUser.email}`
+          );
+          const backendData = await res.json();
+          const mergedUser = {
+            ...currentUser,
+            ...backendData,
+            displayName: backendData.name || currentUser.displayName,
+            photoURL: backendData.photoURL || currentUser.photoURL,
+          };
+          setUser(mergedUser);
+        } catch (err) {
+          console.error("Failed to fetch backend user data:", err);
+          setUser(currentUser);
+        }
+      } else {
+        setUser(null);
+      }
       setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
-  const signOutUser = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("User signed out successfully");
-      })
-      .catch((error) => {
-        console.error("Error signing out:", error);
+  const updateUserProfile = async (profileData) => {
+    if (!user) throw new Error("No user logged in");
+
+    // 1️⃣ Update Firebase
+    if (auth.currentUser) {
+      await updateProfile(auth.currentUser, {
+        displayName: profileData.name,
+        photoURL: profileData.photoURL,
       });
+    }
+
+    // 2️⃣ Update backend
+    const res = await fetch(`http://localhost:3000/users/email/${user.email}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(profileData),
+    });
+
+    const backendData = await res.json();
+    if (!res.ok) throw new Error(backendData.message || "Update failed");
+
+    // 3️⃣ Update context
+    setUser((prev) => ({
+      ...prev,
+      displayName: profileData.name,
+      photoURL: profileData.photoURL,
+      ...backendData,
+    }));
+
+    return backendData;
   };
 
   const authInfo = {
@@ -64,9 +103,10 @@ const AuthProvider = ({ children }) => {
     loading,
     createUser,
     signInUser,
-    signOutUser,
-    signInWithGoogle,
     logOut,
+    signOutUser: logOut,
+    signInWithGoogle,
+    updateUserProfile, // <-- new function
     setUser,
   };
 

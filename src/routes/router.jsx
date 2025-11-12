@@ -9,6 +9,8 @@ import PrivateRoute from "../components/PrivateRoute";
 import Services from "../components/Services";
 import ServiceDetails from "../components/ServiceDetails";
 import MyServicesWrapper from "../contexts/MyServiceWrapper";
+import Profile from "../components/Profile";
+import Login from "../components/Login";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+      {
+        path: "/login",
+        Component: Login,
       },
       {
         path: "/services",
@@ -49,6 +55,10 @@ const router = createBrowserRouter([
             loader: ({ params }) =>
               fetch(`http://localhost:3000/services/${params.id}`),
             Component: ServiceDetails,
+          },
+          {
+            path: "/profile",
+            Component: Profile,
           },
         ],
       },

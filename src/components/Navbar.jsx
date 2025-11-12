@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const navLinkClass = ({ isActive }) =>
     `px-3 py-2 rounded-lg transition-all duration-300 ${
@@ -50,13 +51,14 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await signOutUser();
+      navigate("/");
       Swal.fire({
         icon: "success",
         title: "Logged out",
         text: "You have successfully logged out.",
         timer: 2000,
         showConfirmButton: false,
-      });
+      }).then(() => {});
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -134,17 +136,18 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            {user.photoURL && (
-              <img
-                src={user.photoURL || "/default-user.png"}
-                alt={user.displayName || "User"}
-                className="h-10 w-10 rounded-full object-cover border-2 border-primary"
-              />
-            )}
-            <span className="font-semibold text-accent">
-              {user.displayName || "User"}
-            </span>
-
+            <Link to="/profile" className="flex items-center gap-2">
+              {user.photoURL && (
+                <img
+                  src={user.photoURL || "/default-user.png"}
+                  alt={user.displayName || "User"}
+                  className="h-10 w-10 rounded-full object-cover border-2 border-primary"
+                />
+              )}
+              <span className="font-semibold text-accent">
+                {user.displayName || "User"}
+              </span>
+            </Link>
             <button
               onClick={handleLogout}
               className="btn btn-primary btn-sm md:btn-md text-accent transition-all duration-300 hover:scale-105 hover:shadow-md"

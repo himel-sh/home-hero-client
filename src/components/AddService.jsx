@@ -134,7 +134,7 @@ const AddService = () => {
               value={formData.serviceName}
               onChange={handleChange}
               placeholder="e.g. Refrigerator Repair"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+              className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
             />
           </div>
 
@@ -148,7 +148,7 @@ const AddService = () => {
               value={formData.category}
               onChange={handleChange}
               placeholder="e.g. Electrician, Plumbing, Cleaning"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+              className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
             />
           </div>
 
@@ -164,7 +164,7 @@ const AddService = () => {
               onChange={handleChange}
               placeholder="Enter price"
               min={500}
-              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+              className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
             />
           </div>
 
@@ -178,7 +178,7 @@ const AddService = () => {
               value={formData.estimatedDuration}
               onChange={handleChange}
               placeholder="e.g. 2–4 hours"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+              className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
             />
           </div>
         </div>
@@ -194,7 +194,7 @@ const AddService = () => {
             onChange={handleChange}
             rows="2"
             placeholder="Write a short summary..."
-            className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+            className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
           ></textarea>
         </div>
 
@@ -208,7 +208,7 @@ const AddService = () => {
             onChange={handleChange}
             rows="4"
             placeholder="Write full detailed description..."
-            className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+            className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
           ></textarea>
         </div>
 
@@ -223,7 +223,7 @@ const AddService = () => {
             onChange={handleChange}
             rows="2"
             placeholder="Why should customers choose this service?"
-            className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+            className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
           ></textarea>
         </div>
 
@@ -248,7 +248,7 @@ const AddService = () => {
                 value={item}
                 onChange={(e) => handleIncludedChange(index, e.target.value)}
                 placeholder={`Included item ${index + 1}`}
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+                className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
               />
               {formData.whatIncluded.length > 1 && (
                 <button
@@ -274,7 +274,7 @@ const AddService = () => {
             value={formData.imageUrl}
             onChange={handleChange}
             placeholder="https://example.com/service-image.jpg"
-            className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-secondary"
+            className="w-full border border-gray-300 rounded-lg p-3 bg-base-300 focus:ring-2 focus:ring-secondary"
           />
           {formData.imageUrl && (
             <img
@@ -296,7 +296,7 @@ const AddService = () => {
               type="text"
               value={user?.displayName || ""}
               readOnly
-              className="w-full border border-gray-200 bg-gray-100 rounded-lg p-3 text-gray-600 cursor-not-allowed"
+              className="w-full border border-gray-200 bg-base-300 rounded-lg p-3 text-gray-600 cursor-not-allowed"
             />
           </div>
           <div>
@@ -307,7 +307,7 @@ const AddService = () => {
               type="email"
               value={user?.email || ""}
               readOnly
-              className="w-full border border-gray-200 bg-gray-100 rounded-lg p-3 text-gray-600 cursor-not-allowed"
+              className="w-full border border-gray-200 bg-base-300 rounded-lg p-3 text-gray-600 cursor-not-allowed"
             />
           </div>
         </div>

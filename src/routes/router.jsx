@@ -8,6 +8,7 @@ import MyBookings from "../components/MyBookings";
 import PrivateRoute from "../components/PrivateRoute";
 import Services from "../components/Services";
 import ServiceDetails from "../components/ServiceDetails";
+import MyServicesWrapper from "../contexts/MyServiceWrapper";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/myServices",
-            Component: MyServices,
+            Component: MyServicesWrapper,
           },
           {
             path: "/addService",

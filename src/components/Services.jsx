@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import React, { useEffect, useState } from "react";
 
 const Services = () => {
@@ -67,9 +68,12 @@ const Services = () => {
                       : service.description}
                   </p>
                   <div className="card-actions justify-start mt-4">
-                    <button className="btn btn-secondary text-accent font-bold px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition-transform">
+                    <Link
+                      to={`/services/${service._id}`}
+                      className="btn btn-secondary text-accent font-bold px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition-transform"
+                    >
                       Book Now
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

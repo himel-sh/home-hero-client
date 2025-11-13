@@ -29,14 +29,16 @@ const Profile = () => {
     setLoading(true);
 
     try {
+      const encodedEmail = encodeURIComponent(user.email);
       const res = await fetch(
-        `https://home-hero-server-zeta.vercel.app/users/email/${user.email}`,
+        `https://home-hero-server-zeta.vercel.app/users/email/${encodedEmail}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         }
       );
+
       const backendData = await res.json();
       if (!res.ok) throw new Error(backendData.message || "Update failed");
 

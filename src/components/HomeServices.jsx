@@ -56,8 +56,7 @@ const HomeServices = () => {
         <motion.div
           variants={fadeInUp}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          animate="visible"
           className="text-center mb-20"
         >
           <p className="uppercase tracking-widest text-2xl text-secondary font-extrabold mb-2">
@@ -75,8 +74,7 @@ const HomeServices = () => {
           <motion.div
             variants={staggerContainer}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             className="grid gap-y-12 gap-x-8 sm:grid-cols-2 lg:grid-cols-3"
           >
             {services.map((service, index) => {

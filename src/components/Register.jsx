@@ -7,7 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
   document.title = "Register - Home Hero";
-  const { createUser, signInWithGoogle, setUser } = useContext(AuthContext);
+  const { createUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -45,23 +45,16 @@ const Register = () => {
     try {
       const result = await createUser(formData.email, formData.password);
 
-      // Save user to backend
       const newUser = {
         name: formData.name,
         email: formData.email,
         photoURL: formData.photoURL,
       };
+
       await fetch("https://home-hero-server-zeta.vercel.app/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
-      });
-
-      // Update context
-      setUser({
-        ...result.user,
-        displayName: formData.name,
-        photoURL: formData.photoURL,
       });
 
       Swal.fire("Success", "Registration successful!", "success");
@@ -83,13 +76,13 @@ const Register = () => {
         email: result.user.email,
         photoURL: result.user.photoURL,
       };
+
       await fetch("https://home-hero-server-zeta.vercel.app/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
       });
 
-      setUser(result.user);
       Swal.fire("Success", "Logged in with Google!", "success");
       navigate(from, { replace: true });
     } catch (err) {
@@ -164,7 +157,7 @@ const Register = () => {
           <button
             type="submit"
             disabled={loading}
-            className="btn  btn-secondary text-accent hover:btn-secondary hover:text-white w-full mt-2"
+            className="btn btn-secondary text-accent hover:btn-secondary hover:text-white w-full mt-2"
           >
             {loading ? "Registering..." : "Register"}
           </button>

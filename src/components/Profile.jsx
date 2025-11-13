@@ -32,7 +32,7 @@ const Profile = () => {
       const encodedEmail = encodeURIComponent(user.email.toLowerCase());
 
       const res = await fetch(
-        `https://home-hero-server-4kk883x0u-himels-projects-6c0590ef.vercel.app/users/email/${encodedEmail}`,
+        `https://home-hero-server-zeta.vercel.app/users/email/${encodedEmail}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

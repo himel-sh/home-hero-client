@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Wrench, Plug, Hammer, Paintbrush, Layers, Home } from "lucide-react";
 import { useNavigate } from "react-router";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
-const staggerContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
-};
 
 const iconMap = {
   Plumbing: Wrench,
@@ -53,40 +42,29 @@ const HomeServices = () => {
     <section className="py-20 bg-base-200">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         {/* Header */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-          className="text-center mb-20"
-        >
+        <div className="text-center mb-20">
           <p className="uppercase tracking-widest text-2xl text-secondary font-extrabold mb-2">
             Services
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-accent">
             We can handle all types of handyman services
           </h2>
-        </motion.div>
+        </div>
 
         {/* Service Cards */}
         {services.length === 0 ? (
           <p className="text-center text-gray-500">No services available.</p>
         ) : (
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-            className="grid gap-y-12 gap-x-8 sm:grid-cols-2 lg:grid-cols-3"
-          >
+          <div className="grid gap-y-12 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => {
               const Icon =
                 iconMap[service.serviceName] ||
                 Object.values(iconMap)[index % Object.values(iconMap).length];
 
               return (
-                <motion.div
+                <div
                   key={service._id}
                   onClick={() => navigate(`/services/${service._id}`)}
-                  variants={fadeInUp}
                   className="relative group bg-base-300 p-4 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between cursor-pointer"
                 >
                   {/* Icon */}
@@ -115,10 +93,10 @@ const HomeServices = () => {
                       </span>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

@@ -7,7 +7,7 @@ Built with modern technologies to ensure a smooth, fast, and responsive user exp
 
 ### 🌐 **Live Site URL**
 
-👉 [https://homehero-client.vercel.app](https://homehero-client.vercel.app)
+👉 [https://home-hero-client.web.app/]
 
 ---
 
@@ -35,10 +35,3 @@ Built with modern technologies to ensure a smooth, fast, and responsive user exp
 - **Notifications:** SweetAlert2 `^11.26.3`
 
 ---
-
-### ⚙️ **Setup Instructions**
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/homehero-client.git
-   ```

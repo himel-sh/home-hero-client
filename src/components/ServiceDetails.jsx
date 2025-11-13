@@ -1,19 +1,20 @@
 import React, { useContext, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, Clock, User, Tag, Briefcase } from "lucide-react";
+import { CheckCircle, Clock, User, Tag, Briefcase, Star } from "lucide-react";
 import { FaArrowRight } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
 import { useLoaderData } from "react-router";
 
 const ServiceDetails = () => {
-  useEffect(() => {
-    document.title = "Service Details - HomeHero"; // sets browser tab title
-  }, []);
   const service = useLoaderData();
   const { user } = useContext(AuthContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
+
+  useEffect(() => {
+    document.title = "Service Details - HomeHero";
+  }, []);
 
   if (!service) return <p>Loading...</p>;
 
@@ -29,6 +30,7 @@ const ServiceDetails = () => {
     imageUrl,
     providerName,
     _id: serviceId,
+    reviews = [], // reviews array
   } = service;
 
   useEffect(() => {
@@ -73,7 +75,7 @@ const ServiceDetails = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      {/* Header / Hero Section */}
+      {/* Hero Section */}
       <div className="relative rounded-2xl overflow-hidden shadow-lg">
         <motion.img
           src={imageUrl}
@@ -136,6 +138,41 @@ const ServiceDetails = () => {
 
           <div className="mt-8 bg-base-300 p-5 shadow-2xl rounded-xl border-l-4 border-secondary">
             <p className="text-gray-800 font-medium">{customerBenefits}</p>
+          </div>
+
+          {/* Reviews Section */}
+          <div className="mt-8">
+            <h3 className="text-2xl font-bold mb-4">Customer Reviews</h3>
+            {reviews.length === 0 ? (
+              <p className="text-gray-500">No reviews yet.</p>
+            ) : (
+              <div className="space-y-4">
+                {reviews.map((r, index) => (
+                  <div
+                    key={index}
+                    className="p-4 bg-base-200 rounded-lg shadow-sm border border-gray-200"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="font-semibold text-gray-700">
+                        {r.userEmail || "Anonymous"}
+                      </p>
+                      <div className="flex items-center text-yellow-500">
+                        {Array.from({ length: r.rating }, (_, i) => (
+                          <Star key={i} size={16} className="inline mr-1" />
+                        ))}
+                        <span className="ml-1 text-gray-600 font-semibold">
+                          {r.rating}/5
+                        </span>
+                      </div>
+                    </div>
+                    {r.comment && <p className="text-gray-700">{r.comment}</p>}
+                    <p className="text-gray-400 text-sm mt-1">
+                      {new Date(r.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

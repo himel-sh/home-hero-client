@@ -90,7 +90,7 @@ const AuthProvider = ({ children }) => {
 
     setUser((prev) => ({
       ...prev,
-      displayName: profileData.name,
+      displayName: profileData.displayName,
       photoURL: profileData.photoURL,
       ...backendData,
     }));

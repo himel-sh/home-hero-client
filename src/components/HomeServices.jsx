@@ -29,7 +29,7 @@ const HomeServices = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/services")
+    fetch("https://home-hero-server-zeta.vercel.app/services")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch services");
         return res.json();
@@ -87,7 +87,7 @@ const HomeServices = () => {
               return (
                 <motion.div
                   key={service._id}
-                  onClick={() => navigate(`/services/${service._id}`)} // <-- Navigate to service details
+                  onClick={() => navigate(`/services/${service._id}`)}
                   variants={fadeInUp}
                   className="relative group bg-base-300 p-4 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between cursor-pointer"
                 >

@@ -25,7 +25,7 @@ const Services = () => {
     if (maxPrice) query.push(`maxPrice=${maxPrice}`);
     const queryString = query.length ? `?${query.join("&")}` : "";
 
-    fetch(`http://localhost:3000/services${queryString}`)
+    fetch(`https://home-hero-server-zeta.vercel.app/services${queryString}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch services");
         return res.json();

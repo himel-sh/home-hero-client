@@ -25,14 +25,16 @@ const MyBookings = () => {
     if (!user?.email) return;
     setLoading(true);
 
-    fetch(`http://localhost:3000/bookings?email=${user.email}`)
+    fetch(
+      `https://home-hero-server-zeta.vercel.app/bookings?email=${user.email}`
+    )
       .then((res) => res.json())
       .then(async (data) => {
         const bookingsWithReviews = await Promise.all(
           data.map(async (b) => {
             try {
               const resService = await fetch(
-                `http://localhost:3000/services/${b.serviceId}`
+                `https://home-hero-server-zeta.vercel.app/services/${b.serviceId}`
               );
               const service = await resService.json();
               const reviews = service.reviews || [];
@@ -66,7 +68,9 @@ const MyBookings = () => {
       confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/bookings/${id}`, { method: "DELETE" })
+        fetch(`https://home-hero-server-zeta.vercel.app/bookings/${id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -127,11 +131,14 @@ const MyBookings = () => {
           createdAt: new Date(),
         };
 
-        fetch(`http://localhost:3000/services/${serviceId}/reviews`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ review }),
-        })
+        fetch(
+          `https://home-hero-server-zeta.vercel.app/services/${serviceId}/reviews`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ review }),
+          }
+        )
           .then((res) => res.json())
           .then(() => {
             Swal.fire(

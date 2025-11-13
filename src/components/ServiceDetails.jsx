@@ -5,10 +5,13 @@ import { FaArrowRight } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { AuthContext } from "../contexts/AuthContext";
 import { useLoaderData } from "react-router";
+import useAxios from "../hooks/useAxios";
 
 const ServiceDetails = () => {
   const service = useLoaderData();
   const { user } = useContext(AuthContext);
+  const axios = useAxios();
+
   const [modalOpen, setModalOpen] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
 
@@ -30,42 +33,37 @@ const ServiceDetails = () => {
     imageUrl,
     providerName,
     _id: serviceId,
-    reviews = [], // reviews array
+    reviews = [],
   } = service;
 
   useEffect(() => {
     if (!user?.email || !serviceId) return;
 
-    fetch(
-      `http://localhost:3000/bookings/check?userEmail=${user.email}&serviceId=${serviceId}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.booked) setIsBooked(true);
+    axios
+      .get(`/bookings/check`, {
+        params: { userEmail: user.email, serviceId },
+      })
+      .then((res) => {
+        if (res.data.booked) setIsBooked(true);
       })
       .catch((err) => console.error("Error checking booking:", err));
-  }, [user?.email, serviceId]);
+  }, [axios, user?.email, serviceId]);
 
-  const handleBooking = (e) => {
+  const handleBooking = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    const bookingData = Object.fromEntries(formData);
 
-    fetch("http://localhost:3000/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        Swal.fire("Success", "Booking confirmed!", "success");
-        e.target.reset();
-        setModalOpen(false);
-        setIsBooked(true);
-      })
-      .catch(() => {
-        Swal.fire("Error", "Booking failed. Try again.", "error");
-      });
+    try {
+      await axios.post("/bookings", bookingData);
+      Swal.fire("Success", "Booking confirmed!", "success");
+      e.target.reset();
+      setModalOpen(false);
+      setIsBooked(true);
+    } catch (error) {
+      console.error("Booking failed:", error);
+      Swal.fire("Error", "Booking failed. Try again.", "error");
+    }
   };
 
   return (
@@ -105,7 +103,7 @@ const ServiceDetails = () => {
 
       {/* Main Content */}
       <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {/* Left */}
+        {/* Left Section */}
         <div className="md:col-span-2 space-y-6">
           <motion.h2
             className="text-2xl font-bold text-neutral"

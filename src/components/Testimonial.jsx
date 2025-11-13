@@ -27,7 +27,7 @@ const Testimonial = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/testimonials")
+    fetch("https://home-hero-server-zeta.vercel.app/testimonials")
       .then((res) => res.json())
       .then((data) => {
         setTestimonials(data);

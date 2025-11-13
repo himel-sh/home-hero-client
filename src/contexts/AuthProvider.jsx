@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
         try {
           // fetch backend data
           const res = await fetch(
-            `http://localhost:3000/users/email/${currentUser.email}`
+            `https://home-hero-server-zeta.vercel.app/users/email/${currentUser.email}`
           );
           const backendData = await res.json();
           const mergedUser = {
@@ -69,7 +69,6 @@ const AuthProvider = ({ children }) => {
   const updateUserProfile = async (profileData) => {
     if (!user) throw new Error("No user logged in");
 
-    // 1️⃣ Update Firebase
     if (auth.currentUser) {
       await updateProfile(auth.currentUser, {
         displayName: profileData.name,
@@ -77,17 +76,18 @@ const AuthProvider = ({ children }) => {
       });
     }
 
-    // 2️⃣ Update backend
-    const res = await fetch(`http://localhost:3000/users/email/${user.email}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(profileData),
-    });
+    const res = await fetch(
+      `https://home-hero-server-zeta.vercel.app/users/email/${user.email}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profileData),
+      }
+    );
 
     const backendData = await res.json();
     if (!res.ok) throw new Error(backendData.message || "Update failed");
 
-    // 3️⃣ Update context
     setUser((prev) => ({
       ...prev,
       displayName: profileData.name,

@@ -54,7 +54,7 @@ const EditServiceModal = ({ service, providerEmail, onClose, onUpdate }) => {
       };
 
       const res = await fetch(
-        `http://localhost:3000/services/${formData._id}`,
+        `https://home-hero-server-zeta.vercel.app/services/${formData._id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

@@ -1,17 +1,44 @@
-# React + Vite
+# 🏠 HomeHero — Your Trusted Home Service Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**HomeHero** connects customers with reliable home service providers for everything from cleaning to repairs.  
+Built with modern technologies to ensure a smooth, fast, and responsive user experience.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🌐 **Live Site URL**
 
-## React Compiler
+👉 [https://homehero-client.vercel.app](https://homehero-client.vercel.app)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+### ✨ **Key Features**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# home-hero-client
+- 🔐 **Authentication System:** Secure login and registration using Firebase Authentication.
+- 🧰 **Service Management:** Users can view, add, and manage their own services easily.
+- 🧾 **Booking System:** Customers can book services, view their bookings, and avoid duplicate bookings.
+- 🌙 **Dark/Light Theme Toggle:** Seamless theme switching with saved user preferences.
+- 📱 **Responsive Design:** Fully optimized for mobile, tablet, and desktop screens.
+
+---
+
+### 💻 **Tech Stack**
+
+- **Frontend Framework:** React `^19.1.1`
+- **React DOM:** `^19.1.1`
+- **Routing:** React Router `^7.9.5`
+- **Styling:** Tailwind CSS `^4.1.17`, DaisyUI `^5.4.7`
+- **Tailwind Plugin for Vite:** @tailwindcss/vite `^4.1.17`
+- **Animations:** Framer Motion `^12.23.24`, Popmotion `^11.0.5`
+- **HTTP Client:** Axios `^1.13.2`
+- **Firebase:** `^12.5.0`
+- **Icons:** Lucide React `^0.553.0`, React Icons `^5.5.0`
+- **Notifications:** SweetAlert2 `^11.26.3`
+
+---
+
+### ⚙️ **Setup Instructions**
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/homehero-client.git
+   ```

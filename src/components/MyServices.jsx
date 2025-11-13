@@ -13,7 +13,7 @@ import EditServiceModal from "./EditServiceModal";
 
 const MyServices = ({ providerEmail }) => {
   useEffect(() => {
-    document.title = "My Services - HomeHero"; // sets browser tab title
+    document.title = "My Services - HomeHero";
   }, []);
 
   const [services, setServices] = useState([]);
@@ -24,7 +24,7 @@ const MyServices = ({ providerEmail }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:3000/provider/services?email=${providerEmail}`
+        `https://home-hero-server-zeta.vercel.app/provider/services?email=${providerEmail}`
       );
       if (!res.ok) throw new Error("Failed to fetch services");
       const data = await res.json();
@@ -53,11 +53,14 @@ const MyServices = ({ providerEmail }) => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/services/${id}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: providerEmail }),
-      });
+      const res = await fetch(
+        `https://home-hero-server-zeta.vercel.app/services/${id}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: providerEmail }),
+        }
+      );
       if (!res.ok) throw new Error("Failed to delete service");
 
       Swal.fire("Deleted!", "Service has been removed.", "success");

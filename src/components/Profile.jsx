@@ -30,7 +30,7 @@ const Profile = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/users/email/${user.email}`,
+        `https://home-hero-server-zeta.vercel.app/users/email/${user.email}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

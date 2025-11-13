@@ -6,7 +6,7 @@ import { PlusCircle, Trash2, Plus } from "lucide-react";
 
 const AddService = () => {
   useEffect(() => {
-    document.title = "Add Service - HomeHero"; // sets browser tab title
+    document.title = "Add Service - HomeHero";
   }, []);
 
   const { user } = useContext(AuthContext);
@@ -23,7 +23,6 @@ const AddService = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  // Handle normal input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -32,7 +31,6 @@ const AddService = () => {
     }));
   };
 
-  // Handle dynamic list (whatIncluded)
   const handleIncludedChange = (index, value) => {
     const updated = [...formData.whatIncluded];
     updated[index] = value;
@@ -51,11 +49,9 @@ const AddService = () => {
     setFormData((prev) => ({ ...prev, whatIncluded: updated }));
   };
 
-  // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (
       !formData.serviceName ||
       !formData.category ||
@@ -75,11 +71,14 @@ const AddService = () => {
 
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/services", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newService),
-      });
+      const res = await fetch(
+        "https://home-hero-server-zeta.vercel.app/services",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newService),
+        }
+      );
 
       const data = await res.json();
 

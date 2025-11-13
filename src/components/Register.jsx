@@ -51,7 +51,7 @@ const Register = () => {
         email: formData.email,
         photoURL: formData.photoURL,
       };
-      await fetch("http://localhost:3000/users", {
+      await fetch("https://home-hero-server-zeta.vercel.app/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),
@@ -83,7 +83,7 @@ const Register = () => {
         email: result.user.email,
         photoURL: result.user.photoURL,
       };
-      await fetch("http://localhost:3000/users", {
+      await fetch("https://home-hero-server-zeta.vercel.app/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),

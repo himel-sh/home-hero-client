@@ -6,7 +6,7 @@ import Testimonial from "./Testimonial";
 
 const Home = () => {
   useEffect(() => {
-    document.title = "HomeHero"; // sets browser tab title
+    document.title = "HomeHero";
   }, []);
   return (
     <div>

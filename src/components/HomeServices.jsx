@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Wrench, Plug, Hammer, Paintbrush, Layers, Home } from "lucide-react";
 import { useNavigate } from "react-router";
 
@@ -11,32 +11,11 @@ const iconMap = {
   "Home Renovation": Home,
 };
 
-const HomeServices = () => {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const HomeServices = ({ services }) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("https://home-hero-server-zeta.vercel.app/services")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch services");
-        return res.json();
-      })
-      .then((data) => setServices(data.slice(0, 6)))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-[50vh]">
-        <span className="loading loading-spinner text-accent text-3xl"></span>
-      </div>
-    );
-
-  if (error)
-    return <div className="text-center text-red-500 mt-10">Error: {error}</div>;
+  if (!services || services.length === 0)
+    return <p className="text-center text-gray-500">No services available.</p>;
 
   return (
     <section className="py-20 bg-base-200">
@@ -51,53 +30,48 @@ const HomeServices = () => {
           </h2>
         </div>
 
-        {/* Service Cards */}
-        {services.length === 0 ? (
-          <p className="text-center text-gray-500">No services available.</p>
-        ) : (
-          <div className="grid gap-y-12 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, index) => {
-              const Icon =
-                iconMap[service.serviceName] ||
-                Object.values(iconMap)[index % Object.values(iconMap).length];
+        {/* Cards */}
+        <div className="grid gap-y-12 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service, index) => {
+            const Icon =
+              iconMap[service.serviceName] ||
+              Object.values(iconMap)[index % Object.values(iconMap).length];
 
-              return (
-                <div
-                  key={service._id}
-                  onClick={() => navigate(`/services/${service._id}`)}
-                  className="relative group bg-base-300 p-4 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between cursor-pointer"
-                >
-                  {/* Icon */}
-                  <div className="absolute -top-6 left-6 p-3 rounded-md bg-secondary transition-colors duration-300 group-hover:bg-primary">
-                    <Icon className="w-8 h-8 text-white transition-colors duration-300 group-hover:text-black" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="mt-8">
-                    <h3 className="text-xl font-bold text-accent mb-2">
-                      {service.serviceName}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      {service.description.length > 100
-                        ? service.description.slice(0, 100) + "..."
-                        : service.description}
-                    </p>
-
-                    <div className="flex items-center gap-1 mt-2">
-                      <span
-                        className="text-accent font-semibold opacity-0 -translate-x-2 
-                        group-hover:opacity-100 group-hover:translate-x-0 
-                        transition-all duration-300"
-                      >
-                        Read More →
-                      </span>
-                    </div>
-                  </div>
+            return (
+              <div
+                key={service._id}
+                onClick={() => navigate(`/services/${service._id}`)}
+                className="relative group bg-base-300 p-4 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+              >
+                {/* Icon */}
+                <div className="absolute -top-6 left-6 p-3 rounded-md bg-secondary group-hover:bg-primary transition-all">
+                  <Icon className="w-8 h-8 text-white group-hover:text-black" />
                 </div>
-              );
-            })}
-          </div>
-        )}
+
+                {/* Content */}
+                <div className="mt-8">
+                  <h3 className="text-xl font-bold text-accent mb-2">
+                    {service.serviceName}
+                  </h3>
+
+                  <p className="text-gray-600 text-sm mb-4">
+                    {service.description.length > 100
+                      ? service.description.slice(0, 100) + "..."
+                      : service.description}
+                  </p>
+
+                  <span
+                    className="text-accent font-semibold opacity-0 -translate-x-2 
+                    group-hover:opacity-100 group-hover:translate-x-0 
+                    transition-all duration-300"
+                  >
+                    Read More →
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

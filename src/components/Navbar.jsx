@@ -29,6 +29,16 @@ const Navbar = () => {
           Services
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/about" className={navLinkClass}>
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/contact" className={navLinkClass}>
+          Contact Us
+        </NavLink>
+      </li>
       {user && (
         <>
           <li>
@@ -139,6 +149,19 @@ const Navbar = () => {
 
       {/* Navbar End */}
       <div className="navbar-end flex items-center gap-2">
+        {/* Theme Toggle (Desktop) */}
+        <button
+          onClick={toggleTheme}
+          className="btn btn-ghost btn-circle hidden lg:flex items-center justify-center"
+          title="Toggle theme"
+        >
+          {theme === "light" ? (
+            <Moon size={20} className="text-accent" />
+          ) : (
+            <Sun size={20} className="text-accent" />
+          )}
+        </button>
+
         {/* Auth Buttons */}
         {!user ? (
           <div className="flex items-center gap-2">

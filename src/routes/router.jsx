@@ -12,6 +12,8 @@ import MyServicesWrapper from "../contexts/MyServiceWrapper";
 import Profile from "../components/Profile";
 import Login from "../components/Login";
 import Error404 from "../components/Error404";
+import AboutUs from "../components/AboutUs";
+import ContactUs from "../components/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: "/services",
         Component: Services,
+      },
+      {
+        path: "/about",
+        Component: AboutUs,
+      },
+      {
+        path: "/contact",
+        Component: ContactUs,
       },
       {
         path: "*",

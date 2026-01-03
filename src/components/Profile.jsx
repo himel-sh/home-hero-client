@@ -57,7 +57,9 @@ const Profile = () => {
         ...backendData,
       }));
 
-      Swal.fire("Success", "Profile updated successfully!", "success");
+      await Swal.fire("Success", "Profile updated successfully!", "success");
+
+      window.location.reload();
     } catch (err) {
       console.error(err);
       Swal.fire("Error", err.message || "Failed to update profile", "error");

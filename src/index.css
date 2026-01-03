@@ -1,16 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default;
+  themes: light dark;
 }
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
   --color-primary: #c4d9ff;
   --color-secondary: #c5baff;
+  --color-base-100: #ffffff;
   --color-base-200: #fbfbfb;
   --color-base-300: #e8f9ff;
   --color-accent: #222222;
+}
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+  --color-base-100: #1f2937;
+  --color-base-200: #111827;
+  --color-base-300: #0f172a;
+  --color-accent: #f3f4f6;
 }
 
 * {

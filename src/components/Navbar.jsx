@@ -46,16 +46,20 @@ const Navbar = () => {
               Dashboard
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/myServices" className={navLinkClass}>
-              My Services
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/addService" className={navLinkClass}>
-              Add Service
-            </NavLink>
-          </li>
+          {user.role === "provider" && (
+            <>
+              <li>
+                <NavLink to="/myServices" className={navLinkClass}>
+                  My Services
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/addService" className={navLinkClass}>
+                  Add Service
+                </NavLink>
+              </li>
+            </>
+          )}
           <li>
             <NavLink to="/myBookings" className={navLinkClass}>
               My Bookings

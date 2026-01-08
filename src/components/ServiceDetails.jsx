@@ -197,18 +197,27 @@ const ServiceDetails = () => {
           </div>
 
           <motion.button
-            whileHover={{ scale: isBooked ? 1 : 1.05 }}
-            whileTap={{ scale: isBooked ? 1 : 0.95 }}
+            whileHover={{
+              scale: isBooked || user?.email === service.email ? 1 : 1.05,
+            }}
+            whileTap={{
+              scale: isBooked || user?.email === service.email ? 1 : 0.95,
+            }}
             className={`w-full py-3 rounded-xl flex items-center justify-center gap-2 font-semibold 
               ${
-                isBooked
-                  ? "bg-gray-400 text-white cursor-not-allowed"
+                isBooked || user?.email === service.email
+                  ? "bg-gray-400 text-white cursor-not-allowed opacity-50"
                   : "bg-primary text-accent hover:bg-secondary"
               }`}
             onClick={() => setModalOpen(true)}
-            disabled={isBooked}
+            disabled={isBooked || user?.email === service.email}
           >
-            {isBooked ? "Booked" : "Book Now"} <FaArrowRight />
+            {isBooked
+              ? "Booked"
+              : user?.email === service.email
+              ? "Your Service"
+              : "Book Now"}{" "}
+            <FaArrowRight />
           </motion.button>
         </motion.div>
       </motion.div>

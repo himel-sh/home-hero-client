@@ -15,6 +15,7 @@ import Error404 from "../components/Error404";
 import AboutUs from "../components/AboutUs";
 import ContactUs from "../components/ContactUs";
 import Dashboard from "../components/Dashboard";
+import RoleBasedRoute from "../components/RoleBasedRoute";
 
 const router = createBrowserRouter([
   {
@@ -59,13 +60,20 @@ const router = createBrowserRouter([
           },
           {
             path: "/myServices",
-            Component: MyServicesWrapper,
+            element: (
+              <RoleBasedRoute allowedRoles={["provider"]}>
+                <MyServicesWrapper />
+              </RoleBasedRoute>
+            ),
           },
           {
             path: "/addService",
-            Component: AddService,
+            element: (
+              <RoleBasedRoute allowedRoles={["provider"]}>
+                <AddService />
+              </RoleBasedRoute>
+            ),
           },
-
           {
             path: "/myBookings",
             Component: MyBookings,

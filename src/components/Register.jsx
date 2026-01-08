@@ -17,6 +17,7 @@ const Register = () => {
     email: "",
     photoURL: "",
     password: "",
+    role: "user",
   });
   const [loading, setLoading] = useState(false);
 
@@ -140,6 +141,18 @@ const Register = () => {
               placeholder="Enter image URL"
               className="input input-bordered w-full"
             />
+          </div>
+          <div>
+            <label className="block font-semibold mb-1">I am a</label>
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className="select select-bordered w-full"
+            >
+              <option value="user">Regular User</option>
+              <option value="provider">Service Provider</option>
+            </select>
           </div>
           <div>
             <label className="block font-semibold mb-1">Password</label>

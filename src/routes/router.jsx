@@ -14,6 +14,7 @@ import Login from "../components/Login";
 import Error404 from "../components/Error404";
 import AboutUs from "../components/AboutUs";
 import ContactUs from "../components/ContactUs";
+import Dashboard from "../components/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
         // Private Routes
         element: <PrivateRoute />,
         children: [
+          {
+            path: "/dashboard",
+            Component: Dashboard,
+          },
           {
             path: "/myServices",
             Component: MyServicesWrapper,
